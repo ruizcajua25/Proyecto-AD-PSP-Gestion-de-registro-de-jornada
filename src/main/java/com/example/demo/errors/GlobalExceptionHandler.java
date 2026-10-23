@@ -1,6 +1,6 @@
 package com.example.demo.errors;
 
-\import com.example.demo.dtos.ErrorValidacionDTO;
+import com.example.demo.dtos.ErrorValidacionDTO;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
