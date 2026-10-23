@@ -1,13 +1,10 @@
 package com.example.demo.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +20,10 @@ public class Departamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String nombre;
-    private double presupuesto;
+
+    private BigDecimal presupuesto;
 
     @OneToMany(mappedBy = "departamento")
     @Builder.Default

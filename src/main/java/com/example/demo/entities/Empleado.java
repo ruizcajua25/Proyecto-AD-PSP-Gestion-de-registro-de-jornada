@@ -3,6 +3,7 @@ package com.example.demo.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class Empleado {
 
     private String nombreCompleto;
     private String cargo;
-    private double salario;
+    private BigDecimal salario;
 
     @ManyToOne
     @JoinColumn(name = "departamento_id")
