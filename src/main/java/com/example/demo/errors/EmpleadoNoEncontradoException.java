@@ -1,8 +1,13 @@
 package com.example.demo.errors;
 
+import lombok.Getter;
+
+@Getter
 public class EmpleadoNoEncontradoException extends RuntimeException {
 
+    private final Long id;
+
     public EmpleadoNoEncontradoException(Long id) {
-        super("No existe el empleado con id " + id);
+        this.id = id;
     }
 }

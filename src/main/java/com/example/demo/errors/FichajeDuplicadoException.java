@@ -1,10 +1,14 @@
 package com.example.demo.errors;
 
 import com.example.demo.entities.TipoFichaje;
+import lombok.Getter;
 
+@Getter
 public class FichajeDuplicadoException extends RuntimeException {
 
+    private final TipoFichaje tipo;
+
     public FichajeDuplicadoException(TipoFichaje tipo) {
-        super("El último fichaje ya es " + tipo + "; no se puede registrar otro " + tipo);
+        this.tipo = tipo;
     }
 }

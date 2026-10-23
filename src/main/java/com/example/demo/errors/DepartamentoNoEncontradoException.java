@@ -1,8 +1,13 @@
 package com.example.demo.errors;
 
+import lombok.Getter;
+
+@Getter
 public class DepartamentoNoEncontradoException extends RuntimeException {
 
+    private final Long id;
+
     public DepartamentoNoEncontradoException(Long id) {
-        super("No existe el departamento con id " + id);
+        this.id = id;
     }
 }
