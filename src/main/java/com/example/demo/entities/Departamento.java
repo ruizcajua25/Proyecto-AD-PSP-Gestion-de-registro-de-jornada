@@ -1,6 +1,7 @@
 package com.example.demo.entities;
 
 
+import com.example.demo.validations.PresupuestoSuficiente;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@PresupuestoSuficiente
 public class Departamento {
 
     @Id
