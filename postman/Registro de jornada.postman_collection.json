@@ -1,0 +1,236 @@
+{
+  "info": {
+    "_postman_id": "7c1f0e2a-3b4d-4e5f-8a9b-registro-jornada",
+    "name": "Registro de Jornada API",
+    "description": "Colección para probar la API de registro de jornada. Ejecutar las peticiones en orden.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "departamentoId", "value": "" },
+    { "key": "empleadoId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Departamentos",
+      "item": [
+        {
+          "name": "Crear departamento",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Devuelve 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('departamentoId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Informática\",\n  \"presupuesto\": 50000.00\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/departamentos"
+          }
+        },
+        {
+          "name": "Listar departamentos",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/departamentos"
+          }
+        },
+        {
+          "name": "Buscar departamento por id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/departamentos/{{departamentoId}}"
+          }
+        },
+        {
+          "name": "Actualizar departamento",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Informática y Sistemas\",\n  \"presupuesto\": 60000.00\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/departamentos/{{departamentoId}}"
+          }
+        },
+        {
+          "name": "Departamento inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": ["pm.test('Devuelve 404', () => pm.response.to.have.status(404));"]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/departamentos/999999"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Empleados",
+      "item": [
+        {
+          "name": "Crear empleado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Devuelve 201', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('empleadoId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreCompleto\": \"Ana Pérez\",\n  \"cargo\": \"Desarrolladora\",\n  \"salario\": 1500.00\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/empleados"
+          }
+        },
+        {
+          "name": "Listar empleados",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/empleados"
+          }
+        },
+        {
+          "name": "Buscar empleado por id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/empleados/{{empleadoId}}"
+          }
+        },
+        {
+          "name": "Actualizar empleado",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreCompleto\": \"Ana Pérez García\",\n  \"cargo\": \"Desarrolladora Senior\",\n  \"salario\": 1800.00\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/empleados/{{empleadoId}}"
+          }
+        },
+        {
+          "name": "Asignar empleado a departamento",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": ["pm.test('Devuelve 200', () => pm.response.to.have.status(200));"]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/empleados/{{empleadoId}}/departamento/{{departamentoId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fichajes",
+      "item": [
+        {
+          "name": "Fichar (alterna automáticamente)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": ["pm.test('Devuelve 201', () => pm.response.to.have.status(201));"]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/empleados/{{empleadoId}}/fichar"
+          }
+        },
+        {
+          "name": "Fichar indicando tipo repetido (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": ["pm.test('Devuelve 409', () => pm.response.to.have.status(409));"]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"ENTRADA\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/empleados/{{empleadoId}}/fichar"
+          }
+        },
+        {
+          "name": "Historial de fichajes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": ["pm.test('Devuelve 200', () => pm.response.to.have.status(200));"]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/empleados/{{empleadoId}}/fichajes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Limpieza",
+      "item": [
+        {
+          "name": "Eliminar empleado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": ["pm.test('Devuelve 204', () => pm.response.to.have.status(204));"]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/empleados/{{empleadoId}}"
+          }
+        }
+      ]
+    }
+  ]
+}
