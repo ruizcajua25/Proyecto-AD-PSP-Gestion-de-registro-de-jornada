@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PresupuestoSuficiente {
 
-    String message() default "La suma de los salarios supera el presupuesto del departamento";
+    String message() default "{presupuesto.insuficiente}";
 
     Class<?>[] groups() default {};
 
