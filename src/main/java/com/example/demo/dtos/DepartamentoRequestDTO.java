@@ -8,6 +8,11 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 
 public record DepartamentoRequestDTO(
-        @NotBlank @Size(max = 100) String nombre,
-        @NotNull @DecimalMin("0.00") BigDecimal presupuesto) {
+        @NotBlank(message = "{departamento.nombre.obligatorio}")
+        @Size(max = 100, message = "{departamento.nombre.longitud}")
+        String nombre,
+
+        @NotNull(message = "{departamento.presupuesto.obligatorio}")
+        @DecimalMin(value = "0.00", message = "{departamento.presupuesto.minimo}")
+        BigDecimal presupuesto) {
 }

@@ -7,7 +7,13 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public record EmpleadoRequestDTO(
-        @NotBlank String nombreCompleto,
-        @NotBlank String cargo,
-        @NotNull @DecimalMin("0.01") BigDecimal salario) {
+        @NotBlank(message = "{empleado.nombre.obligatorio}")
+        String nombreCompleto,
+
+        @NotBlank(message = "{empleado.cargo.obligatorio}")
+        String cargo,
+
+        @NotNull(message = "{empleado.salario.obligatorio}")
+        @DecimalMin(value = "0.01", message = "{empleado.salario.minimo}")
+        BigDecimal salario) {
 }
