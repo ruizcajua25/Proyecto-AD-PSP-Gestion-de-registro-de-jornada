@@ -2,5 +2,5 @@ package com.example.demo.dtos;
 
 import com.example.demo.entities.TipoFichaje;
 
-public record FicharRequestDTO(TipoFichaje tipo) {   // opcional, ver paso 6
+public record FicharRequestDTO(TipoFichaje tipo) {
 }

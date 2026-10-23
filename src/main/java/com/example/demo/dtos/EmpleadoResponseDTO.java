@@ -10,7 +10,7 @@ public record EmpleadoResponseDTO(
         String cargo,
         BigDecimal salario,
         DepartamentoResumenDTO departamento
-) {        // DTO anidado
+) {
 
     public static EmpleadoResponseDTO from(Empleado e) {
         DepartamentoResumenDTO depto = e.getDepartamento() == null
